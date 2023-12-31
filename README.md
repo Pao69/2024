@@ -54,6 +54,16 @@
       border-radius: 5px;
     }
 
+    #nsfw-button {
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      background-color: #4285f4;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+
     #youtube-player {
       display: none;
       width: 640px;
@@ -68,6 +78,7 @@
     <canvas id="fireworks"></canvas>
   </div>
   <button onclick="startFireworks()">PRESS FOR FIREWORKS</button>
+  <button id="nsfw-button" onclick="openNSFWLink()">PRESS = TRUST</button>
   <div id="youtube-player"></div>
 
   <script>
@@ -117,6 +128,10 @@
         youtubePlayer.style.display = 'block';
         youtubePlayer.innerHTML = '<iframe width="640" height="360" src="https://www.youtube.com/embed/rWwhteesVhA?autoplay=1" frameborder="0" allowfullscreen></iframe>';
       }, 5000);
+    }
+
+    function openNSFWLink() {
+      window.open('https://matias.ma/nsfw/', '_blank');
     }
   </script>
 </body>
