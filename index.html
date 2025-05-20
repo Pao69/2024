@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy New Year!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4285f4;
+            --accent-color: #ff4081;
+            --text-color: #ffffff;
+            --bg-color: #000000;
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             text-align: center;
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-color) 100%);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -23,28 +40,53 @@
         .container {
             position: relative;
             z-index: 10;
+            padding: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            max-width: 90%;
+            width: 800px;
+            margin: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
         }
 
         h1 {
-            font-size: 3.5rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FF3366, #FF6B6B, #4ECDC4, #45B7D1, #96C93D);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.2);
             margin: 30px 0;
-            animation: textGlow 3s infinite;
+            animation: gradientText 10s ease infinite;
+            letter-spacing: 2px;
         }
 
-        @keyframes textGlow {
-            0% { color: #ff0000; text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
-            16.666% { color: #ff9900; text-shadow: 0 0 10px rgba(255, 153, 0, 0.7); }
-            33.333% { color: #ffcc00; text-shadow: 0 0 10px rgba(255, 204, 0, 0.7); }
-            50% { color: #33cc33; text-shadow: 0 0 10px rgba(51, 204, 51, 0.7); }
-            66.666% { color: #3399ff; text-shadow: 0 0 10px rgba(51, 153, 255, 0.7); }
-            83.333% { color: #cc66ff; text-shadow: 0 0 10px rgba(204, 102, 255, 0.7); }
-            100% { color: #ff0000; text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         #countdown {
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 600;
             margin: 20px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         #fireworks-canvas {
@@ -55,76 +97,224 @@
             height: 100%;
             z-index: 1;
         }
-        
-        .button {
-            padding: 12px 25px;
-            font-size: 18px;
-            margin: 15px;
-            cursor: pointer;
-            background-color: #4285f4;
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
-        }
-        
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.6);
-            background-color: #5294ff;
-        }
-        
-        .button:active {
-            transform: translateY(1px);
-        }
-
-        #nsfw-button {
-            font-size: 14px;
-            padding: 8px 16px;
-            background-color: #ff4081;
-            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
-        }
-        
-        #nsfw-button:hover {
-            background-color: #ff679a;
-            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.6);
-        }
 
         .button-group {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            background: linear-gradient(45deg, var(--primary-color), #5c9fff);
+            color: var(--text-color);
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.6);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        #nsfw-button {
+            background: linear-gradient(45deg, var(--accent-color), #ff679a);
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+        }
+
+        #nsfw-button:hover {
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.6);
         }
 
         #volume-control {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 15px 0;
-            gap: 10px;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        #volume-control label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         #volume-slider {
-            width: 150px;
+            -webkit-appearance: none;
+            width: 200px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #5c9fff;
+        }
+
+        #volume-value {
+            min-width: 50px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         #youtube-player {
             display: none;
             margin: 20px auto;
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        #youtube-player.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-button {
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .social-button img {
+            width: 24px;
+            height: 24px;
+            filter: invert(1);
         }
 
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
             }
+
+            #countdown {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+                margin: 10px;
+            }
+
+            .button {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+
+            #volume-slider {
+                width: 150px;
+            }
+
             #youtube-player iframe {
-                width: 90vw;
-                height: 50.625vw; /* 16:9 ratio */
+                width: 100%;
+                height: 56.25vw; /* 16:9 ratio */
+                max-width: 640px;
+                max-height: 360px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            #countdown {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #volume-control {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Snow effect */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 2;
+            color: white;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
             }
         }
     </style>
@@ -133,22 +323,38 @@
     <canvas id="fireworks-canvas"></canvas>
     
     <div class="container">
-    <h1>HAPPY NEW YEAR EVERYONE!!!</h1>
-    
+        <h1>HAPPY NEW YEAR EVERYONE!!!</h1>
+        
         <div id="countdown"></div>
         
         <div class="button-group">
-            <button class="button" id="start-button" onclick="startFireworks()">LAUNCH FIREWORKS</button>
-            <button class="button" id="nsfw-button" onclick="openNSFWLink()">PRESS = TRUST</button>
+            <button class="button" id="start-button" onclick="startFireworks()">
+                LAUNCH FIREWORKS
+            </button>
+            <button class="button" id="nsfw-button" onclick="openNSFWLink()">
+                PRESS = TRUST
+            </button>
         </div>
 
         <div id="volume-control">
-            <label for="volume-slider">Volume:</label>
+            <label for="volume-slider">Volume Control</label>
             <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
             <span id="volume-value">50%</span>
-    </div>
+        </div>
 
-    <div id="youtube-player"></div>
+        <div id="youtube-player"></div>
+
+        <div class="social-links">
+            <a href="#" class="social-button" title="Share on Twitter">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjQgNC41NTdjLS44ODMuMzkyLTEuODMyLjY1Ni0yLjgyOC43NzUgMS4wMTctLjYwOSAxLjc5OC0xLjU3NCAyLjE2NS0yLjcyNC0uOTUxLjU2NC0yLjAwNS45NzQtMy4xMjcgMS4xOTUtLjg5Ny0uOTU3LTIuMTc4LTEuNTU1LTMuNTk0LTEuNTU1LTMuMTc5IDAtNS41MTUgMi45NjYtNC43OTcgNi4wNDUtNC4wOTEtLjIwNS03LjcxOS0yLjE2NS0xMC4xNDgtNS4xNDQtMS4yOSAyLjIxMy0uNjY5IDUuMTA4IDEuNTIzIDYuNTc0LS44MDYtLjAyNi0xLjU2Ni0uMjQ3LTIuMjI5LS42MTYtLjA1NCAyLjI4MSAxLjU4MSA0LjQxNSAzLjk0OSA0Ljg5LS42OTMuMTg4LTEuNDUyLjIzMi0yLjIyNC4wODQuNjI2IDEuOTU2IDIuNDQ0IDMuMzc5IDQuNiAzLjQxOS0yLjA3IDEuNjIzLTQuNjc4IDIuMzQ4LTcuMjkgMi4wNCAyLjE3OSAxLjM5NyA0Ljc2OCAyLjIxMiA3LjU0OCAyLjIxMiA5LjE0MiAwIDE0LjMwNy03LjcyMSAxMy45OTUtMTQuNjQ2Ljk2Mi0uNjk1IDEuNzk3LTEuNTYyIDIuNDU3LTIuNTQ5eiIvPjwvc3ZnPg==" alt="Twitter">
+            </a>
+            <a href="#" class="social-button" title="Share on Facebook">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOSA4aC0zdjRoM3YxMmg1di0xMmgzLjY0MmwuMzU4LTRoLTR2LTEuNjY3YzAtLjk1NS4xOTItMS4zMzMgMS4xMTUtMS4zMzNoMi44ODV2LTVoLTMuODA4Yy0zLjU5NiAwLTUuMTkyIDEuNTgzLTUuMTkyIDQuNjE1djMuMzg1eiIvPjwvc3ZnPg==" alt="Facebook">
+            </a>
+            <a href="#" class="social-button" title="Share on WhatsApp">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNLjA1NyAyNGwxLjY4Ny02LjE2M2MtMS4wNDEtMS44MDQtMS41ODgtMy44NDktMS41ODctNS45NDYuMDAzLTYuNTU2IDUuMzM4LTExLjg5MSAxMS44OTMtMTEuODkxIDMuMTgxLjAwMSA2LjE2NyAxLjI0IDguNDEzIDMuNDg4IDIuMjQ1IDIuMjQ4IDMuNDgxIDUuMjM2IDMuNDggOC40MTQtLjAwMyA2LjU1Ny01LjMzOCAxMS44OTItMTEuODkzIDExLjg5Mi0xLjk5LS4wMDEtMy45NTEtLjUtNS42ODgtMS40NDhsLTYuMzA1IDEuNjU0em02LjU5Ny0zLjgwN2MxLjY3Ni45OTUgMy4yNzYgMS41OTEgNS4zOTIgMS41OTIgNS40NDggMCA5Ljg4Ni00LjQzNCA5Ljg4OS05Ljg4NS4wMDItNS40NjItNC40MTUtOS44OS05Ljg4MS05Ljg5Mi01LjQ1MiAwLTkuODg3IDQuNDM0LTkuODg5IDkuODg0LS4wMDEgMi4yMjUuNjUxIDMuODkxIDEuNzQ2IDUuNjM0bC0uOTk5IDMuNjQ4IDMuNzQyLS45ODF6bTExLjM4Ny01LjQ2NGMtLjA3NC0uMTI0LS4yNzItLjE5OC0uNTctLjM0Ny0uMjk3LS4xNDktMS43NTgtLjg2OC0yLjAzMS0uOTY3LS4yNzItLjA5OS0uNDctLjE0OS0uNjY5LjE0OS0uMTk4LjI5Ny0uNzY4Ljk2Ny0uOTQxIDEuMTY1LS4xNzMuMTk4LS4zNDcuMjIzLS42NDQuMDc0LS4yOTctLjE0OS0xLjI1NS0uNDYyLTIuMzktMS40NzUtLjg4My0uNzg4LTEuNDgtMS43NjEtMS42NTMtMi4wNTktLjE3My0uMjk3LS4wMTgtLjQ1OC4xMy0uNjA2LjEzNC0uMTMzLjI5Ny0uMzQ3LjQ0Ni0uNTIxLjE1MS0uMTcyLjItLjI5Ni4zLS40OTUuMDk5LS4xOTguMDUtLjM3Mi0uMDI1LS41MjEtLjA3NS0uMTQ4LS42NjktMS42MTEtLjkxNi0yLjIwNi0uMjQyLS41NzktLjQ4Ny0uNTAxLS42NjktLjUxbC0uNTctLjAxYy0uMTk4IDAtLjUyLjA3NC0uNzkyLjM3MnMtMS4wNCAxLjAxNi0xLjA0IDIuNDc5IDEuMDY1IDIuODc2IDEuMjEzIDMuMDc0Yy4xNDkuMTk4IDIuMDk1IDMuMiA1LjA3NiA0LjQ4Ny43MDkuMzA2IDEuMjYzLjQ4OSAxLjY5NC42MjYuNzEyLjIyNiAxLjM2LjE5NCAxLjg3Mi4xMTguNTcxLS4wODUgMS43NTgtLjcxOSAyLjAwNi0xLjQxMy4yNDgtLjY5NS4yNDgtMS4yOS4xNzMtMS40MTR6Ii8+PC9zdmc+" alt="WhatsApp">
+            </a>
+        </div>
     </div>
 
     <script>
@@ -562,12 +768,81 @@
             window.open('https://matias.ma/nsfw/', '_blank');
         }
 
+        // Add snow effect
+        function createSnowflakes() {
+            const snowflakeCount = 50;
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.opacity = Math.random();
+                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(snowflake);
+
+                // Remove snowflake after animation
+                snowflake.addEventListener('animationend', () => {
+                    snowflake.remove();
+                });
+            }
+        }
+
+        // Modify startFireworks function
+        const originalStartFireworks = startFireworks;
+        startFireworks = function() {
+            if (isFireworksRunning) return;
+            
+            // Add button press effect
+            const button = document.getElementById('start-button');
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 200);
+
+            originalStartFireworks();
+        }
+
+        // Enhance YouTube player display
+        function showYouTubePlayer() {
+            const player = document.getElementById('youtube-player');
+            player.style.display = 'block';
+            setTimeout(() => {
+                player.classList.add('visible');
+            }, 100);
+        }
+
         // Initialize
         window.onload = function() {
             preloadSounds();
             setupFireworks();
             setInterval(updateCountdown, 1000);
             updateCountdown();
+            setInterval(createSnowflakes, 200);
+
+            // Initialize social share buttons
+            document.querySelectorAll('.social-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const network = e.currentTarget.title.split(' ')[2];
+                    const text = 'Celebrating New Year with amazing fireworks! 🎆';
+                    const url = window.location.href;
+                    
+                    let shareUrl = '';
+                    switch(network) {
+                        case 'Twitter':
+                            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                            break;
+                        case 'Facebook':
+                            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                            break;
+                        case 'WhatsApp':
+                            shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+                            break;
+                    }
+                    window.open(shareUrl, '_blank');
+                });
+            });
         };
     </script>
 </body>
