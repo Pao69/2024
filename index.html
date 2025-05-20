@@ -770,15 +770,15 @@
 
         // Add snow effect
         function createSnowflakes() {
-            const snowflakeCount = 50;
+            const snowflakeCount = 15; // Reduced from 50 to 15
             for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 snowflake.textContent = '❄';
                 snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.opacity = Math.random();
-                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.2; // More controlled opacity
+                snowflake.style.fontSize = (Math.random() * 8 + 8) + 'px'; // Slightly smaller size
+                snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's'; // Slower fall
                 document.body.appendChild(snowflake);
 
                 // Remove snowflake after animation
@@ -818,7 +818,7 @@
             setupFireworks();
             setInterval(updateCountdown, 1000);
             updateCountdown();
-            setInterval(createSnowflakes, 200);
+            setInterval(createSnowflakes, 500); // Reduced frequency from 200ms to 500ms
 
             // Initialize social share buttons
             document.querySelectorAll('.social-button').forEach(button => {
